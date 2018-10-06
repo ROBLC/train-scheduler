@@ -13,32 +13,42 @@ $(document).ready(function () {
 
     var database = firebase.database();
 
-    $("#addRow").on("click", function (event) {
-        event.preventDefault();
+    $("#addRow").on("click", function () {
+        var form = document.getElementById("trainForm")
         //event.preventDefault();
         var train = $('#trainName').val().trim();
         var destination = $('#destination').val().trim();
-        var trainTime = $('#trainTime').val().trim();
+        var trainTime = moment($("#trainTime").val().trim()).format("X");
         var trainFrequency = $("#frequency").val().trim();
-
-
-
-        if (train !== "" && destination !== "" && trainTime !== "" && trainFrequency !== "") {
+        console.log(train, destination, trainTime, trainFrequency);
+        if (form.checkValidity()) {
             database.ref().push({
                 TrainName: train,
                 destination: destination,
-                trainTIme: trainTime,
+                trainTime: trainTime,
                 trainFrequency: trainFrequency
 
             });
         }
-        else {
-
-            alert("Check that the information is correct!!");
-        }
-        $("#trainForm")[0].reset();
     });
     database.ref().on("child_added", function (childSnapshot) {
+        var trainFrequency = childSnapshot.val().trainFrequency
+        var firstTrainTime = moment(childSnapshot.val().trainTime, "HH:mm").subtract(1, "years");
+        var diffTime = moment().diff(moment(firstTrainTime), "minutes");
+        var tRemainder = diffTime % trainFrequency;
+        var MinutesTillTrain = trainFrequency - tRemainder;
+        var nextTrain = moment().add(MinutesTillTrain, "minutes");
 
-    })
+        var row = $("<tr>");
+        var trainName = $("<td>").text(childSnapshot.val().TrainName);
+        var destination = $("<td>").text(childSnapshot.val().destination);
+        var trainFrequency = $("<td>").text(childSnapshot.val().trainFrequency);
+        var nextArrival = $("<td>").text(moment(nextTrain).format("hh:mm"));
+        row.append(trainName).append(destination).append(trainFrequency).append(nextArrival).append(MinutesTillTrain);
+
+        $("#tabla").append(row);
+
+    }, function (errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
 });
