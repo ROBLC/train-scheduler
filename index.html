@@ -12,64 +12,52 @@
 
 </head>
 
-<body>
-
+<body class="bg-secondary">
     <div class="container">
-        <div class="page-header">
-            <h1>Employee Database</h1>
+        <div class="jumbotron bg-dark text-warning text-center">
+            <h1>Train Scheduler</h1>
         </div>
 
-        <div class="card">
-            <div class="card-header" id="headerBlack">
-                Current train schedule
-            </div>
+        <div class="card bg-dark mt-4 mb-4">
+            <div class="card-header font-weight-bold bg-warning">Current Train Schedule</div>
+            <table class="table bg-dark">
+                <thead class="text-center bg-secondary text-warning">
+                    <tr>
+                        <th scope="col">Train Name</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Frequency (min)</th>
+                        <th scope="col">Next Arrival</th>
+                        <th scope="col">Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla" class="text-center text-warning"></tbody>
+            </table>
+        </div>
 
+        <div class="card bg-dark mt-4 mb-4">
+            <div class="card-header font-weight-bold bg-warning">Add a Train</div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Train Name</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Frequency (min)</th>
-                            <th scope="col">Next Arrival</th>
-                            <th scope="col">Minutes Away</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla">
-
-                    </tbody>
-                </table>
-                </blockquote>
+                <form id="trainForm">
+                    <div class="form-group text-white">
+                        <label for="trainName">Train Name</label>
+                        <input type="text" class="form-control" id="trainName" required>
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <input type="text" class="form-control" id="destination" required>
+                        </div>
+                        <label for="trainTime">First Train Time (HH:mm)</label>
+                        <input type="time" class="form-control" id="trainTime" required>
+                        <label for="frequency">Frequency (min)</label>
+                        <input type="number" class="form-control" id="frequency" min="1" step="1" required>
+                        <br>
+                        <button id="addRow" type="submit" class="btn btn-warning">Submit</button>
+                </form>
             </div>
-            <div id="card-wrapper">
-                <div class="page-header">
-                    <div class="card-header">
-                        Add a train
-                    </div>
-                    <div class="card-body">
-                        <form id="trainForm">
-                            <div class="form-group">
-                                <label for="trainName">Train Name</label>
-                                <input type="text" class="form-control" id="trainName" required>
-                                <div class="form-group">
-                                    <label for="destination">Destination</label>
-                                    <input type="text" class="form-control" id="destination" required>
-                                </div>
-                                <label for="trainTime">First Train Time (HH:mm - military time)</label>
-                                <input type="time" class="form-control" id="trainTime" required>
-                                <label for="frequency">Frequency (min)</label>
-                                <input type="number" class="form-control" id="frequency" min="1" step="1" required>
-                                <br>
-                                <button id="addRow" type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
+        </div>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-            <script type="text/javascript" src="assets/js/app.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+        <script type="text/javascript" src="assets/js/app.js"></script>
 
 </body>
 

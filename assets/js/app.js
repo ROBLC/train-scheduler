@@ -18,7 +18,7 @@ $(document).ready(function () {
         //event.preventDefault();
         var train = $('#trainName').val().trim();
         var destination = $('#destination').val().trim();
-        var trainTime = moment($("#trainTime").val().trim()).format("X");
+        var trainTime = $("#trainTime").val().trim();
         var trainFrequency = $("#frequency").val().trim();
         console.log(train, destination, trainTime, trainFrequency);
         if (form.checkValidity()) {
@@ -43,8 +43,9 @@ $(document).ready(function () {
         var trainName = $("<td>").text(childSnapshot.val().TrainName);
         var destination = $("<td>").text(childSnapshot.val().destination);
         var trainFrequency = $("<td>").text(childSnapshot.val().trainFrequency);
-        var nextArrival = $("<td>").text(moment(nextTrain).format("hh:mm"));
-        row.append(trainName).append(destination).append(trainFrequency).append(nextArrival).append(MinutesTillTrain);
+        var nextArrival = $("<td>").text(moment(nextTrain).format("LT"));
+        var minutesLeft = $("<td>").text(MinutesTillTrain);
+        row.append(trainName).append(destination).append(trainFrequency).append(nextArrival).append(minutesLeft);
 
         $("#tabla").append(row);
 
